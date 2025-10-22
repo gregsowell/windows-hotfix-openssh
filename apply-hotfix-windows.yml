@@ -1,6 +1,6 @@
 ---
 - name: This playbook demonstrates applying a hotfix on a Windows host over openssh
-  hosts: windows
+  hosts: Greg-win-iis-openssh
   gather_facts: no
   vars:
     msu_path: C:\Users\Administrator\Downloads\windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu
