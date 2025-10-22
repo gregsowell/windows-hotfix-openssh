@@ -1,0 +1,20 @@
+---
+- name: This playbook demonstrates applying a hotfix on a Windows host over openssh
+  hosts: windows
+  gather_facts: no
+  vars:
+    msu_path: C:\Users\Administrator\Downloads\windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu
+
+  tasks:
+    # - name: Copy hotfix file to remote Windows host
+    #   ansible.builtin.copy:
+    #     src: /path/to/local/hotfix.msu
+    #     dest: C:\Temp\hotfix.msu
+
+    - name: Apply the hotfix using wusa.exe
+      ansible.builtin.win_command: "wusa.exe {{ msu_path }} /quiet /norestart"
+      # args:
+      #   creates: C:\Windows\Hotfixes\hotfix.msu
+
+    # - name: Remove the hotfix file after installation
+    #   ansible.builtin.file:
