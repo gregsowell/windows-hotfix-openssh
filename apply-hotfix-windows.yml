@@ -10,9 +10,18 @@
     #   ansible.builtin.copy:
     #     src: /path/to/local/hotfix.msu
     #     dest: C:\Temp\hotfix.msu
+    - ansible.windows.win_shell: |
+        Get-HotFix | Select-Object Description, HotFixID, InstalledOn | ConvertTo-Json -Depth 2
+      register: hotfixes_raw
+
+    - ansible.builtin.debug:
+        msg: "{{ hotfixes_raw.stdout | from_json }}"
 
     - name: Apply the hotfix using wusa.exe
       ansible.builtin.win_command: "wusa.exe {{ msu_path }} /quiet /norestart"
+      #when the system asks for a restart it returns exit code 3010, so not failure.
+      changed_when: wusa.rc in [0, 3010]
+      failed_when: wusa.rc not in [0, 3010]
       become: true
       # args:
       #   creates: C:\Windows\Hotfixes\hotfix.msu
