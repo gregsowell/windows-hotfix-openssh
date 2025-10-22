@@ -23,6 +23,7 @@
       changed_when: wusa.rc in [0, 3010]
       failed_when: wusa.rc not in [0, 3010, 2359302]  #2359302 = already installed
       become: true
+      register: wusa
       # args:
       #   creates: C:\Windows\Hotfixes\hotfix.msu
 
