@@ -19,3 +19,10 @@
 
     # - name: Remove the hotfix file after installation
     #   ansible.builtin.file:
+
+    - ansible.windows.win_shell: |
+        Get-HotFix | Select-Object Description, HotFixID, InstalledOn | ConvertTo-Json -Depth 2
+      register: hotfixes_raw
+
+    - ansible.builtin.debug:
+        msg: "{{ hotfixes_raw.stdout | from_json }}"
