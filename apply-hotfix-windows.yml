@@ -13,6 +13,7 @@
 
     - name: Apply the hotfix using wusa.exe
       ansible.builtin.win_command: "wusa.exe {{ msu_path }} /quiet /norestart"
+      become: true
       # args:
       #   creates: C:\Windows\Hotfixes\hotfix.msu
 
