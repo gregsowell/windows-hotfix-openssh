@@ -27,7 +27,7 @@
       #when the system asks for a restart it returns exit code 3010, so not failure.
       changed_when: wusa.rc in [0, 3010]
       failed_when: wusa.rc not in [0, 3010, 2359302]  #2359302 = already installed
-      become: true
+      # become: true
       register: wusa
 
     # - name: Remove the hotfix file after installation 
