@@ -7,6 +7,8 @@
     kb_id: KB5065426
 
   tasks:
+
+    - ansible.windows.win_command: C:\Windows\System32\expand.exe -R
     # - name: Copy hotfix file to remote Windows host
     #   ansible.builtin.copy:
     #     src: /path/to/local/hotfix.msu
