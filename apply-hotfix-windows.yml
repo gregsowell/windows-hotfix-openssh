@@ -8,7 +8,8 @@
 
   tasks:
 
-    - ansible.windows.win_command: C:\Windows\System32\expand.exe -R
+    # - ansible.windows.win_command: C:\Windows\System32\expand.exe -R
+
     # - name: Copy hotfix file to remote Windows host
     #   ansible.builtin.copy:
     #     src: /path/to/local/hotfix.msu
@@ -21,24 +22,13 @@
     - ansible.builtin.debug:
         msg: "{{ hotfixes_raw.stdout | from_json }}"
 
-    # - name: Apply the hotfix using wusa.exe
-    #   ansible.builtin.win_command: "wusa.exe {{ msu_path }} /quiet /norestart"
-    #   #when the system asks for a restart it returns exit code 3010, so not failure.
-    #   changed_when: wusa.rc in [0, 3010]
-    #   failed_when: wusa.rc not in [0, 3010, 2359302]  #2359302 = already installed
-    #   become: true
-    #   register: wusa
-
-    - name: Install MSU idempotently
-      ansible.windows.win_hotfix:
-        source: "{{ msu_path }}"
-        hotfix_kb: "{{ kb_id }}"
-        state: present
-      register: hf
-      environment:
-        PATH: "C:\\Windows\\System32;{{ ansible_env.Path | default('') }}"
-      # (optional elevation—same rules apply)
-      # become: true
+    - name: Apply the hotfix using wusa.exe
+      ansible.builtin.win_command: "wusa.exe {{ msu_path }} /quiet /norestart"
+      #when the system asks for a restart it returns exit code 3010, so not failure.
+      changed_when: wusa.rc in [0, 3010]
+      failed_when: wusa.rc not in [0, 3010, 2359302]  #2359302 = already installed
+      become: true
+      register: wusa
 
     # - name: Remove the hotfix file after installation
     #   ansible.builtin.file:
