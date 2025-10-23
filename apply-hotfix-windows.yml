@@ -34,7 +34,7 @@
         state: present
       register: hf
       # (optional elevation—same rules apply)
-      become: true
+      # become: true
 
     # - name: Remove the hotfix file after installation
     #   ansible.builtin.file:
