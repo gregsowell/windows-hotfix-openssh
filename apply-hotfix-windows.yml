@@ -33,6 +33,8 @@
         hotfix_kb: "{{ kb_id }}"
         state: present
       register: hf
+      environment:
+        PATH: "C:\\Windows\\System32;{{ ansible_env.Path | default('') }}"
       # (optional elevation—same rules apply)
       # become: true
 
