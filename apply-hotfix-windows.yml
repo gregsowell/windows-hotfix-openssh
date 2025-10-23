@@ -20,8 +20,8 @@
     - name: Apply the hotfix using wusa.exe
       ansible.builtin.win_command: "wusa.exe {{ msu_path }} /quiet /norestart"
       #when the system asks for a restart it returns exit code 3010, so not failure.
-      # changed_when: wusa.rc in [0, 3010]
-      # failed_when: wusa.rc not in [0, 3010, 2359302]  #2359302 = already installed
+      changed_when: wusa.rc in [0, 3010]
+      failed_when: wusa.rc not in [0, 3010, 2359302]  #2359302 = already installed
       become: true
       register: wusa
       # args:
