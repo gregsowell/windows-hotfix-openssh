@@ -4,6 +4,7 @@
   gather_facts: no
   vars:
     msu_path: C:\Users\Administrator\Downloads\windows11.0-kb5065426-x64_32b5f85e0f4f08e5d6eabec6586014a02d3b6224.msu
+    kb_id: KB5065426
 
   tasks:
     # - name: Copy hotfix file to remote Windows host
@@ -29,6 +30,7 @@
     - name: Install MSU idempotently
       ansible.windows.win_hotfix:
         source: "{{ msu_path }}"
+        hotfix_kb: "{{ kb_id }}"
         state: present
       register: hf
       # (optional elevation—same rules apply)
