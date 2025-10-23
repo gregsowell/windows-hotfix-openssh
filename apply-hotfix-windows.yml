@@ -33,6 +33,7 @@
         hotfix_kb: "{{ kb_id }}"
         state: present
       register: hf
+      become: true
       # (optional elevation—same rules apply)
       # become: true
 
