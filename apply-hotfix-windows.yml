@@ -30,7 +30,7 @@
       become: true
       register: wusa
 
-    # - name: Remove the hotfix file after installation
+    # - name: Remove the hotfix file after installation 
     #   ansible.builtin.file:
 
     - ansible.windows.win_shell: |
